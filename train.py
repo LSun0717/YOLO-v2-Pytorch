@@ -137,8 +137,7 @@ def train():
     if args.tfboard:
         print('use tensorboard')
         from torch.utils.tensorboard import SummaryWriter
-        c_time = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
-        log_path = os.path.join('log/coco/', args.version, c_time)
+        log_path = os.path.join('log\\voc', args.version)
         os.makedirs(log_path, exist_ok=True)
 
         writer = SummaryWriter(log_path)    
@@ -202,7 +201,7 @@ def train():
 
             # to device
             images = images.to(device)
-            targets = torch.tensor(targets).float().to(device)
+            targets = targets.float().to(device)
 
             # inference and loss computation
             conf_loss, class_loss, bbox_loss, iou_loss = model(images, targets=targets)
@@ -221,7 +220,7 @@ def train():
                     writer.add_scalar('cls loss', class_loss.item(), iter_i + epoch * epoch_size)
                     writer.add_scalar('box loss', bbox_loss.item(), iter_i + epoch * epoch_size)
                     writer.add_scalar('iou loss', iou_loss.item(), iter_i + epoch * epoch_size)
-                
+                    
                 t1 = time.time()
                 print('[Epoch %d/%d][Iter %d/%d][lr %.6f]'
                     '[Loss: obj %.2f || cls %.2f || bbox %.2f || iou %.2f || total %.2f || size %d || time: %.2f]'

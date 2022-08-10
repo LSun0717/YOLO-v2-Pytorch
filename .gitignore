@@ -6,3 +6,5 @@ voc_eval
 weights
 
 *.pyc
+
+/log
