@@ -1,0 +1,8 @@
+experiments
+
+Dataset/VOC*
+
+voc_eval
+weights
+
+*.pyc
